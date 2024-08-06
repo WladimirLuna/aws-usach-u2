@@ -28,7 +28,7 @@ export class PipelineCdkStack extends Stack {
     const githubSecret = secretsmanager.Secret.fromSecretNameV2(
         this,
         'GitHubToken',
-        'github/personal_access_token2'
+        'github/token'
     );
 
     pipeline.addStage({
