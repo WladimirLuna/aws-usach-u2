@@ -5,11 +5,13 @@ import * as codebuild from 'aws-cdk-lib/aws-codebuild';
 import * as codepipeline_actions from 'aws-cdk-lib/aws-codepipeline-actions';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
 
 interface ConsumerProps extends StackProps {
   ecrRepository: ecr.Repository,
+  s3Bucket: s3.Bucket,
 }
 
 
@@ -43,6 +45,7 @@ export class PipelineCdkStack extends Stack {
       environmentVariables: {
         IMAGE_TAG: { value: 'latest' },
         IMAGE_REPO_URI: { value: props.ecrRepository.repositoryUri },
+        S3_BUCKET_NAME: { value: props.s3Bucket.bucketName },
         AWS_DEFAULT_REGION: { value: process.env.CDK_DEFAULT_REGION },
       },
       environment: {
@@ -69,6 +72,8 @@ export class PipelineCdkStack extends Stack {
         'ecr:UploadLayerPart',
         'ecr:CompleteLayerUpload',
         'ecr:PutImage',
+        's3:PutObject',
+        's3:PutObjectAcl',
       ],
     });
 
