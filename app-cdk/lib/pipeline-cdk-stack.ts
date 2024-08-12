@@ -38,7 +38,7 @@ export class PipelineCdkStack extends Stack {
     const githubSecret = secretsmanager.Secret.fromSecretNameV2(
         this,
         'GitHubToken',
-        'github/token'
+        'github/token_u3'
     );
 
     const dockerBuild = new codebuild.PipelineProject(this, 'DockerBuild', {
@@ -89,7 +89,7 @@ export class PipelineCdkStack extends Stack {
             owner: 'WladimirLuna',
             repo: 'aws-usach-u2',
             branch: 'main',
-            oauthToken: githubSecret.secretValueFromJson('github_token'),
+            oauthToken: githubSecret.secretValueFromJson('github_token_u3'),
             output: sourceOutput
           }),
         ],
