@@ -22,3 +22,7 @@ phases:
       - docker push $IMAGE_REPO_URI:$IMAGE_TAG
       - echo Uploading Docker image to S3...
       - docker save $IMAGE_TAG | gzip | aws s3 cp - s3://$S3_BUCKET_NAME/$IMAGE_TAG.tar.gz
+      - echo Writing image definitions file...
+      - printf '[{"name":"my-app","imageUri":"%s"}]' $IMAGE_REPO_URI:$IMAGE_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
+artifacts:
+    files: imagedefinitions.json
