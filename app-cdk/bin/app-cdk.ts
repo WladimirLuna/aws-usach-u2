@@ -15,7 +15,9 @@ const s3Bucket = new s3.Bucket(s3BucketStack, 'DockerImageBucket', {
     autoDeleteObjects: true, // Adjust as needed
 });
 
-const testCdkStack = new AppCdkStack(app, 'test', {});
+const testCdkStack = new AppCdkStack(app, 'test', {
+    ecrRepository: ecrCdkStack.repository,
+});
 
 const pipelineCdkStack = new PipelineCdkStack(app, 'pipeline-stack', {
     ecrRepository: ecrCdkStack.repository,
