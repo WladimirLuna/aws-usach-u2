@@ -27,5 +27,7 @@ const pipelineCdkStack = new PipelineCdkStack(app, 'pipeline-stack', {
     ecrRepository: ecrCdkStack.repository,
     s3Bucket: s3Bucket,
     fargateServiceTest: testCdkStack.fargateService,
-    fargateServiceProd: prodCdkStack.fargateService,
+    greenTargetGroup: prodCdkStack.greenTargetGroup,
+    greenLoadBalancerListener: prodCdkStack.greenLoadBalancerListener,
+    fargateServiceProd: prodCdkStack.fargateService
 });
